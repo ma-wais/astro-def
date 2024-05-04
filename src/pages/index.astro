@@ -1,12 +1,40 @@
+---
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+const pageTitle = "Home Page";
+import { getCollection } from 'astro:content'
+
+const posts = await getCollection('posts')
+
+---
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>My Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <Navigation />
+    <h1>{pageTitle}</h1>
+    <p>this is just a homepage</p>
+
+    <ul>
+      {posts.map(post => (
+        <li>
+          <a href={`./posts/${post.slug}`}>{post.data.title}</a>
+        </li>
+      ))}
+    </ul>
+
+    <Footer />
+    
+
+    <script>
+      import '../scripts/script.js';
+
+    </script>
+  </body>
 </html>
